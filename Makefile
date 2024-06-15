@@ -14,15 +14,16 @@ vpath %.h headers
 #rules:
 
 %: %.o 
-	$(LINK.o) $(OUTPUT_OPTION) $<
+	$(LINK.o) $(OUTPUT_OPTION) $^
 %.o: %.c++
 	$(COMPILE.C) $(OUTPUT_OPTION) $<
 
 run: c++
 	./c++
 
-c++: c++.o
-c++.o: c++.cc c++.h
+stringBad.o: stringBad.cc 
+c++: c++.o stringBad.o
+c++.o: c++.cc 
 
 .INTERMEDIATE: *.o
 
