@@ -21,8 +21,8 @@ vpath %.h headers
 run: c++
 	./c++
 
+c++: c++.o stringBad.o stringBad.h
 stringBad.o: stringBad.cc 
-c++: c++.o stringBad.o
 c++.o: c++.cc 
 
 .INTERMEDIATE: *.o

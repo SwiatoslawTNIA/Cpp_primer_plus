@@ -36,9 +36,10 @@ StringBad::~StringBad()
 {
    cout << "Object" << name << " deleted.\n";
    num_strings--;
-   cout << num_strings << "left.\n";
+   cout << num_strings << " objects left.\n";
    delete [] name;
 }
+//overloading the << operator for the Stringbad class
 std::ostream & operator<<(std::ostream & os, const StringBad & s)
 {
    os << s.name;
@@ -46,3 +47,12 @@ std::ostream & operator<<(std::ostream & os, const StringBad & s)
 }
 
 
+//providing an own copy constructor:
+// StringBad::StringBad(const StringBad & obj)//working on a copied object
+// {
+//    num_strings++;
+//    cout << "\n<A copy constructor is called.>\n";
+//    str_len = obj.str_len;
+//    name = new char[str_len + 1];
+//    strcpy(name, obj.name);
+// }
