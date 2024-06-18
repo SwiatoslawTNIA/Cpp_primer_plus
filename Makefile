@@ -18,13 +18,16 @@ vpath %.h headers
 %.o: %.c++
 	$(COMPILE.C) $(OUTPUT_OPTION) $<
 
-run: c++
-	./c++
+run: myCl
+	valgrind ./myCl
 
-c++: c++.o stringBad.o stringBad.h
-stringBad.o: stringBad.cc 
-c++.o: c++.cc 
-
+# .PHONY: String.cc String.h
+# c++: c++.o stringBad.o String.o
+# String.o: String.cc 
+# stringBad.o: stringBad.cc 
+# c++.o: c++.cc 
+myCl: myCl.o 
+myCl.o: myCl.cc 
 .INTERMEDIATE: *.o
 
 .PHONY: depend #Now the file will be updated each time it is called.
