@@ -1,6 +1,17 @@
 #include <iostream>
 #include <cstring>
+#include <cstdlib>//for int rand(void) and void srand(unsigned int)
 #include "queue.h"
+
+
+void Customer::set(long when)
+{
+   srand(time(NULL));//pass the seed
+   process_time = rand() % 3 + 1;//from 1 to four minutes, it takes to process a single
+   //customer
+   arrival_time = when;
+}
+
 Queue::Queue(int q_size) : qsize(q_size), items(0), front(NULL), back(NULL)
 {
    // front = back = NULL;
@@ -62,11 +73,11 @@ int Queue::queuecount(void) const
    return items;
 }
 // a class requires an explicit destructor, to ensure, that all nodes are deleted.
-Queue::~Queue(void) const
+Queue::~Queue(void) 
 {
    if(front == nullptr) return;
 
-   Node *current = front, temp = front;
+   Node *current = front, *temp = front;
    while(current->next != nullptr)
    {
       current = current->next;
