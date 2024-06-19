@@ -24,12 +24,13 @@ run: c++
 
 # .PHONY: String.cc String.h
 
-c++: c++.o String.o
+c++: c++.o stock.o
 
 # queue.o: queue.cc
 c++.o: c++.cc 
+stock.o: stock.cc
 # cow.o: cow.cc 
-String.o: String.cc 
+# String.o: String.cc 
 # stringBad.o: stringBad.cc 
 # myCl: myCl.o 
 # myCl.o: myCl.cc 

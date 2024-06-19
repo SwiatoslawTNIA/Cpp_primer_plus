@@ -267,12 +267,7 @@
 //    return (std::rand() * x / RAND_MAX < 1);
 // }
 
-#include "c++.h"
-// #include "stringBad.h"
-#include <iostream>
-#include <ctime>
-#include <cstdlib>
-#include <stdio.h>
+
 // #include <queue.h>
 //EXERCISE I
 // #include <cow.h>
@@ -306,52 +301,71 @@
 //   return 0;
 // }
 // EXERCISE 2: 
-#include <String.h>
+// #include <String.h>
+// int main(void)
+// {
+//   using namespace std;
+//   String s1(" and I am a C++ student.");
+//   String s2 = "Please enter your name: ";
+//   String s3;
+//   cout << s2;
+
+//   // overloaded << operator
+//   cin >> s3;
+//   // overloaded >> operator
+//   s2 = "My name is " + s3;
+//   // overloaded =, + operators
+//   cout << s2 << ".\n";
+//   s2 = s2 + s1;
+//   s2.stringup();
+//   // converts string to uppercase
+//   cout << "The string\n" << s2 << "\ncontains " << s2.has('A')
+//   << " 'A' characters in it.\n";
+//   s1 = "red";
+//   // String(const char *),
+//   // then String & operator=(const String&)
+//   String rgb[3] = { String(s1), String("green"), String("blue")};
+//   cout << "Enter the name of a primary color for mixing light: ";
+//   String ans;
+//   bool success = false;
+//   while (cin >> ans)
+//   {
+//     ans.stringlow();
+//     cout << ans;
+//     // converts string to lowercase
+//     for (int i = 0; i < 3; i++)
+//     {
+//       if (ans == rgb[i]) // overloaded == operator
+//       {
+//         cout << "That's right!\n";
+//         success = true;
+//         break;
+//       }
+//     }
+//     if (success)
+//       break;
+//     else
+//       cout << "Try again!\n";
+//   }
+//   cout << "Bye\n";
+//   return 0;
+// }
+ //EXERCISE 3:
+#include "c++.h"
+// #include "stringBad.h"
+#include <iostream>
+#include <ctime>
+#include <cstdlib>
+#include <stock.h>
 int main(void)
 {
   using namespace std;
-  String s1(" and I am a C++ student.");
-  String s2 = "Please enter your name: ";
-  String s3;
-  cout << s2;
-  
-  // overloaded << operator
-  cin >> s3;
-  // overloaded >> operator
-  s2 = "My name is " + s3;
-  // overloaded =, + operators
-  cout << s2 << ".\n";
-  s2 = s2 + s1;
-  s2.stringup();
-  // converts string to uppercase
-  cout << "The string\n" << s2 << "\ncontains " << s2.has('A')
-  << " 'A' characters in it.\n";
-  s1 = "red";
-  // String(const char *),
-  // then String & operator=(const String&)
-  String rgb[3] = { String(s1), String("green"), String("blue")};
-  cout << "Enter the name of a primary color for mixing light: ";
-  String ans;
-  bool success = false;
-  while (cin >> ans)
-  {
-    ans.stringlow();
-    cout << ans;
-    // converts string to lowercase
-    for (int i = 0; i < 3; i++)
-    {
-      if (ans == rgb[i]) // overloaded == operator
-      {
-        cout << "That's right!\n";
-        success = true;
-        break;
-      }
-    }
-    if (success)
-      break;
-    else
-      cout << "Try again!\n";
-  }
-  cout << "Bye\n";
+  Stock stock1;
+  Stock stock2("Y CO", 3213, 32.424);
+  stock1.show();
+  stock2.show();
+  Stock bigger_stock = stock1.compare(stock2);
+
+  bigger_stock.show();
   return 0;
 }
