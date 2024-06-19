@@ -1,6 +1,7 @@
 #include "String.h"
 #include <iostream>
 #include <cstring>
+#include <cctype>
 using std::cout, std::cin, std::cerr;
 
  int String::string_count = 0;//initialize a static var
@@ -68,17 +69,20 @@ bool operator==(const String & s1, const String & s2)
 }
 std::istream & operator>>(std::istream & input_stream, String & s)
 {
-   //how we're going to input the string:
-   unsigned int MAG = 20, char_n = 0;
-   char *input = (char *)malloc(sizeof(char) * MAG + 1);
-   while((input[char_n++] = cin.get()) != '\n')//because the condition gets evaluated, the loop will
-   //get incremented one last time, that is n + 1 times compared to the n times of exectution
-   //of the body of the loop
+   const int INITIAL_CAPACITY = 20;
+   char *input = new char[INITIAL_CAPACITY + 1];
+   int char_n = 0;
+
+   char ch;
+   while(input_stream.get(ch) && ch != '\n')
    {
-      if(char_n % 20 == 0)
+      input[char_n++] = ch;
+      if(char_n == INITIAL_CAPACITY)
       {
-         input = (char *)realloc(input, sizeof(MAG) + 20);
-         MAG += 20;
+         char *temp = new char[char_n*2 + 1];
+         std::strcpy(temp, input);
+         delete[] input;
+         input = temp;
       }
    }
    input[char_n] = '\0';
@@ -86,8 +90,8 @@ std::istream & operator>>(std::istream & input_stream, String & s)
    if(s.str != nullptr)
       delete [] s.str;
    s.str = new char[s.str_len + 1];
-   strncpy(s.str, input, char_n + 1);//the arr length is char_n + 1
-   free(input);
+   strcpy(s.str, input);
+   delete [] input;//free the alloced memory
    return input_stream;
 }
 //not a friend function:
@@ -121,8 +125,35 @@ const String operator+(const String & s1, const String & s2)
    cout << "Addition operator";
    String new_string;
    new_string.str_len = s1.str_len + s2.str_len;
+   delete [] new_string.str;//the default constructor creates a str of one byte long
    new_string.str = new char[new_string.str_len + 1];//one for the '\0'
    strcpy(new_string.str, s1.str);
    strcpy(&(new_string.str[s1.str_len]), s2.str);
    return new_string;
+}
+void String::stringup(void)
+{
+   for(unsigned int index = 0; index < str_len;++index)
+   {
+      if(isalpha(str[index]))
+         str[index] = toupper(str[index]);
+   }
+}
+void String::stringlow(void)
+{
+   for(unsigned int index = 0; index < str_len;++index)
+   {
+      if(isalpha(str[index]))
+         str[index] = tolower(str[index]);
+   }
+}
+unsigned int String::has(const char & c) const
+{
+   unsigned int n_of_times = 0;
+   for(unsigned int index = 0; index < str_len;++index)
+   {
+      if(this->str[index] == c)
+         ++n_of_times;
+   }
+   return n_of_times;
 }

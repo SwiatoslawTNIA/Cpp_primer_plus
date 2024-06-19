@@ -19,16 +19,17 @@ vpath %.h headers
 	$(COMPILE.C) $(OUTPUT_OPTION) $<
 
 run: c++
-	valgrind ./c++
+	valgrind --track-origins=yes --leak-check=full ./c++ 
 
 
 # .PHONY: String.cc String.h
 
-c++: c++.o queue.o
-queue.o: queue.cc
-c++.o: c++.cc 
+c++: c++.o String.o
 
-# String.o: String.cc 
+# queue.o: queue.cc
+c++.o: c++.cc 
+# cow.o: cow.cc 
+String.o: String.cc 
 # stringBad.o: stringBad.cc 
 # myCl: myCl.o 
 # myCl.o: myCl.cc 

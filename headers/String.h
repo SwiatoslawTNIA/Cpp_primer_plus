@@ -17,6 +17,9 @@ public:
    String(const char *string);//default constructor with one arg
    //member funcs:
    int length(void) const {return str_len;};//inline function 
+   void stringlow(void);
+   void stringup(void);
+   unsigned int has(const char & c) const;
    static int howMany(void) {return string_count;};//static inline function, returns a static var
    //overloading:
    String & operator=(const String & s)//an assignment operator
@@ -39,6 +42,7 @@ public:
    //friend funcs:
 
    //overloading:
+
    friend bool operator<(const String & s1, const String & s2);
    friend bool operator>(const String & s1, const String & s2);
    friend bool operator==(const String & s1, const String & s2);

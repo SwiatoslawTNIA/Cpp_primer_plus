@@ -184,94 +184,174 @@
 //   cout << "\"" << sb << "\"\n";
 //   //here the copy sb is deleted, the original object remains
 // }
+
+// const unsigned short int MIN_PER_HOUR = 60;
+// bool new_customer(double x);
+
+// int main(void)
+// {
+
+//   using std::cout, std::cin, std::endl, std::cerr, std::ios_base;
+//   cout << "Case Study: Bank of Heather Automatic Teller\n";
+//   cout << "Enter maximum size of queue: ";
+//   int qs = 0;
+//   cin >> qs;
+//   Queue line(qs);//the queue obj
+//   cout << "Enter the number of simulation hours: ";
+//   int hours = 0;
+//   // hours of simulation
+//   cin >> hours;
+//   long cycle_limit = MIN_PER_HOUR * hours;
+
+//   cout << "Enter the average number of customers per hour: ";
+//   double perhour = 0.0;
+//   cin >> perhour;
+
+//   double min_per_customer = MIN_PER_HOUR / perhour;
+//   Item temp;//new customer data
+//   long turnaways = 0;//turned away when the queue is full
+//   long customers = 0;//joined the queue
+//   long served = 0;//customers served
+//   long sum_line = 0;//cumulative line_length
+//   int wait_time = 0;//time until new customer may be served
+//   int line_wait = 0;//cumulative time in line
+//   //running the simulation:
+//   for(int cycle = 0; cycle < cycle_limit;++cycle)
+//   {
+//     if(new_customer(min_per_customer))
+//     {
+//       if(line.isfull())
+//       {
+//         turnaways++;
+//       }
+//       else
+//       {
+//         customers++;
+//         temp.set(cycle);//create new customer
+//         line.enqueue(temp);//
+//       }
+//     }
+//     if(wait_time <= 0 && !line.isempty())
+//     {
+//       line.dequeue(temp);// attend next customer;
+//       wait_time = temp.ptime();
+//       line_wait += cycle - temp.when();
+//       served++;
+//     }
+//     if(wait_time > 0)
+//       --wait_time;
+//     sum_line += line.queuecount();//update the number of customers on the line
+//   }
+//   //reporting:
+//   if(customers > 0)
+//   {
+//     cout << "customers accepted: " << customers << endl;
+//     cout << "customers served: " << served << endl;
+//     cout << "turnaways: " << turnaways << endl;
+//     cout << "average queue size: ";
+//     cout.precision(2);
+//     cout.setf(ios_base::fixed, ios_base::floatfield);
+//     cout << double( sum_line / cycle_limit) << endl;
+//     cout << "average waiting time: " << double (line_wait / served);
+
+//   }
+//   else 
+//      cout << "No customers!!!";
+//   cout << "Done!!";
+
+//   return 0;
+// }
+// //return true if the customer shows up this minute
+// bool new_customer(double x)
+// {
+//    return (std::rand() * x / RAND_MAX < 1);
+// }
+
 #include "c++.h"
 // #include "stringBad.h"
+#include <iostream>
 #include <ctime>
 #include <cstdlib>
-#include <queue.h>
-const unsigned short int MIN_PER_HOUR = 60;
-bool new_customer(double x);
+#include <stdio.h>
+// #include <queue.h>
+//EXERCISE I
+// #include <cow.h>
+// const size_t MAX_STR_LEN = 200;
+// int main(void)
+// {
+//   using std::cout, std::cin;
+  
+//   fprintf(stdout, "Enter the name(max 20 chars): ");
+//   char *temp_name = new char[21];
+//   char *temp_hobby = new char[MAX_STR_LEN];
+//   double weight = 0.0;
+//   cin.getline(temp_name, 21);
+//   cout << "\nEnter your hobby: ";
+//   cin.getline(temp_hobby, MAX_STR_LEN);
+//   cout << ", and your weight: ";
+//   cin >> weight;
+//   Cow cow1 {temp_name,temp_hobby, weight }, cow2;
+//   //free the allocated memory:
+//   delete [] temp_name;
+//   delete [] temp_hobby;
+//   cow1 = cow2;//extends to cow1[1].operator=(cow[0]);
+//   // //display the input, after using the assignment overloading operator
+//   cow1.show();
+//   cow1.show();
+//   Cow new_cow("JAson   Momoa Something Browering", "Jumpskiing", 220);
+//   new_cow.show();
 
+//   // Cow cow_4 = Cow("OOO", "Bear tracking", 220);
+//   // cow_4.show();
+//   return 0;
+// }
+// EXERCISE 2: 
+#include <String.h>
 int main(void)
 {
-
-  using std::cout, std::cin, std::endl, std::cerr, std::ios_base;
-  cout << "Case Study: Bank of Heather Automatic Teller\n";
-  cout << "Enter maximum size of queue: ";
-  int qs = 0;
-  cin >> qs;
-  Queue line(qs);//the queue obj
-  cout << "Enter the number of simulation hours: ";
-  int hours = 0;
-  // hours of simulation
-  cin >> hours;
-  long cycle_limit = MIN_PER_HOUR * hours;
-
-  cout << "Enter the average number of customers per hour: ";
-  double perhour = 0.0;
-  cin >> perhour;
-
-  double min_per_customer = MIN_PER_HOUR / perhour;
-  Item temp;//new customer data
-  long turnaways = 0;//turned away when the queue is full
-  long customers = 0;//joined the queue
-  long served = 0;//customers served
-  long sum_line = 0;//cumulative line_length
-  int wait_time = 0;//time until new customer may be served
-  int line_wait = 0;//cumulative time in line
-  //running the simulation:
-  for(int cycle = 0; cycle < cycle_limit;++cycle)
+  using namespace std;
+  String s1(" and I am a C++ student.");
+  String s2 = "Please enter your name: ";
+  String s3;
+  cout << s2;
+  
+  // overloaded << operator
+  cin >> s3;
+  // overloaded >> operator
+  s2 = "My name is " + s3;
+  // overloaded =, + operators
+  cout << s2 << ".\n";
+  s2 = s2 + s1;
+  s2.stringup();
+  // converts string to uppercase
+  cout << "The string\n" << s2 << "\ncontains " << s2.has('A')
+  << " 'A' characters in it.\n";
+  s1 = "red";
+  // String(const char *),
+  // then String & operator=(const String&)
+  String rgb[3] = { String(s1), String("green"), String("blue")};
+  cout << "Enter the name of a primary color for mixing light: ";
+  String ans;
+  bool success = false;
+  while (cin >> ans)
   {
-    if(new_customer(min_per_customer))
+    ans.stringlow();
+    cout << ans;
+    // converts string to lowercase
+    for (int i = 0; i < 3; i++)
     {
-      if(line.isfull())
+      if (ans == rgb[i]) // overloaded == operator
       {
-        turnaways++;
-      }
-      else
-      {
-        customers++;
-        temp.set(cycle);//create new customer
-        line.enqueue(temp);//
+        cout << "That's right!\n";
+        success = true;
+        break;
       }
     }
-    if(wait_time <= 0 && !line.isempty())
-    {
-      line.dequeue(temp);// attend next customer;
-      wait_time = temp.ptime();
-      line_wait += cycle - temp.when();
-      served++;
-    }
-    if(wait_time > 0)
-      --wait_time;
-    sum_line += line.queuecount();//update the number of customers on the line
+    if (success)
+      break;
+    else
+      cout << "Try again!\n";
   }
-  //reporting:
-  if(customers > 0)
-  {
-    cout << "customers accepted: " << customers << endl;
-    cout << "customers served: " << served << endl;
-    cout << "turnaways: " << turnaways << endl;
-    cout << "average queue size: ";
-    cout.precision(2);
-    cout.setf(ios_base::fixed, ios_base::floatfield);
-    cout << double( sum_line / cycle_limit) << endl;
-    cout << "average waiting time: " << double (line_wait / served);
-
-  }
-  else 
-     cout << "No customers!!!";
-  cout << "Done!!";
-
+  cout << "Bye\n";
   return 0;
 }
-//return true if the customer shows up this minute
-bool new_customer(double x)
-{
-   return (std::rand() * x / RAND_MAX < 1);
-}
-
-
-
-
-
