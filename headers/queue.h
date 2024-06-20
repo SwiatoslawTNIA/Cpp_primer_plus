@@ -34,7 +34,7 @@ private:
    //methods that aren't defined now, should(dem Bedarf nach) spater definiert werden:
    friend const Queue operator+(const Queue & q_1, const Queue & q_2);//add ques
    Queue(const Queue & q_2) : qsize(0) {};//a copy constructor + initialize qsize
-   //before complilation enters the innards of the constructor (copy constructor);
+   // //before complilation enters the innards of the constructor (copy constructor);
    Queue & operator=(const Queue & q) { return *this;};
 public:
    Queue(int qs = Q_SIZE);

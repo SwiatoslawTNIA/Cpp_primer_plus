@@ -185,8 +185,8 @@
 //   //here the copy sb is deleted, the original object remains
 // }
 
-// const unsigned short int MIN_PER_HOUR = 60;
-// bool new_customer(double x);
+const unsigned short int MIN_PER_HOUR = 60;
+bool new_customer(double x);
 
 // int main(void)
 // {
@@ -262,10 +262,11 @@
 //   return 0;
 // }
 // //return true if the customer shows up this minute
-// bool new_customer(double x)
-// {
-//    return (std::rand() * x / RAND_MAX < 1);
-// }
+#include <cstdlib>
+bool new_customer(double x)
+{
+   return (std::rand() * x / RAND_MAX < 1);
+}
 
 
 // #include <queue.h>
@@ -351,21 +352,112 @@
 //   return 0;
 // }
  //EXERCISE 3:
+
+// int main(void)
+// {
+//   using namespace std;
+//   Stock stock1;
+//   Stock stock2("Y CO", 3213, 32.424);
+//   stock1.show();
+//   stock2.show();
+//   Stock bigger_stock = stock1.compare(stock2);
+
+//   bigger_stock.show();
+//   return 0;
+// }
+//EXERCISE 5
 #include "c++.h"
 // #include "stringBad.h"
 #include <iostream>
 #include <ctime>
 #include <cstdlib>
-#include <stock.h>
+#include <queue.h>
 int main(void)
 {
-  using namespace std;
-  Stock stock1;
-  Stock stock2("Y CO", 3213, 32.424);
-  stock1.show();
-  stock2.show();
-  Stock bigger_stock = stock1.compare(stock2);
+  //find out the number of customers per hour, that leads to an average wait time of 1 min
+    using std::cout, std::cin, std::endl, std::cerr, std::ios_base;
+  cout << "Case Study: Bank of Heather Automatic Teller\n";
+  cout << "Enter maximum size of queue: ";
+  int qs = 0;
+  cin >> qs;
+  Queue line(qs);//the queue obj
+  cout << "Enter the number of simulation hours: ";
+  int hours = 0;
+  // hours of simulation
+  cin >> hours;
+  long cycle_limit = MIN_PER_HOUR * hours;
 
-  bigger_stock.show();
+  cout << "Enter the average number of customers per hour: ";
+  double perhour = 40.0;
+  // cin >> perhour;
+
+  double min_per_customer = MIN_PER_HOUR / perhour;
+  Item temp;//new customer data
+  long turnaways = 0;//turned away when the queue is full
+  long customers = 0;//joined the queue
+  long served = 0;//customers served
+  long sum_line = 0;//cumulative line_length
+  int wait_time = 0;//time until new customer may be served
+  int line_wait = 0;//cumulative time in line
+
+  int total_waiting_time = 0;
+  int aver_wait_time = 0;//waiting_time / customers
+  //running the simulation:
+  unsigned int stop = 0;
+  
+  
+    perhour++;//add a customer for one hour
+    min_per_customer = MIN_PER_HOUR / perhour;
+    
+    for(int cycle = 0; cycle < cycle_limit;++cycle)
+    {
+      if(new_customer(min_per_customer))
+      {
+        if(line.isfull())
+        {
+          turnaways++;
+        }
+        else
+        {
+          customers++;
+          temp.set(cycle);//create new customer
+          line.enqueue(temp);//
+        }
+      }
+      if(wait_time <= 0 && !line.isempty())
+      {
+        line.dequeue(temp);// attend next customer;
+        wait_time = temp.ptime();
+        line_wait += cycle - temp.when();
+        served++;
+      }
+      if(wait_time > 0)
+      {
+        --wait_time;
+        total_waiting_time += wait_time;
+      }
+      sum_line += line.queuecount();//update the number of customers on the line
+    
+  //reporting:
+    ++stop;
+    aver_wait_time = total_waiting_time / customers;
+  }
+  if(customers > 0)
+  {
+    cout << "customers accepted: " << customers << endl;
+    cout << "customers served: " << served << endl;
+    cout << "turnaways: " << turnaways << endl;
+    cout << "average queue size: ";
+    cout.precision(2);
+    cout.setf(ios_base::fixed, ios_base::floatfield);
+    cout << double( sum_line / cycle_limit) << endl;
+    cout << "average waiting time: " << double (line_wait / served);
+    cout << "Customers: (per hour)" << perhour;
+
+  }
+  else 
+     cout << "No customers!!!";
+  cout << "Done!!";
+
   return 0;
 }
