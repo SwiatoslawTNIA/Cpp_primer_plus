@@ -11,7 +11,7 @@ Stock::Stock(void): default_size(ARR_SIZE), shares(0), share_val(0.0), total_val
 }
 Stock::Stock(const char * co, long number_of_shares, double price): default_size(ARR_SIZE)
 {
-   company = nullptr;
+   
    if(co != nullptr)
    {
       std::cout << "length: " << strlen(co);
@@ -19,9 +19,45 @@ Stock::Stock(const char * co, long number_of_shares, double price): default_size
       company = new char[static_cast<size_t>(std::strlen(co)) + 1];//->5
       strcpy(company, co);//set the company to co
    }
+   else
+   {
+      company = new char[1];
+      company[0] = '\0';
+   }
    shares = number_of_shares;
    share_val = price;
    set_tot();//compute the total value
+}
+Stock::Stock(const Stock & s): default_size(ARR_SIZE)
+{// a copy constructor
+   if(s.company != nullptr)
+   {
+      this->company = new char[strlen(s.company) + 1];
+      strcpy(company, s.company);
+   }
+   else
+   {
+      company = new char[1];
+      company[0] = '\0';
+   }
+   this->shares = s.shares;
+   this->share_val = s.share_val;
+   set_tot();//set all the vals
+}
+Stock & Stock::operator=(const Stock & s )
+{
+   if(&s == this) return *this;
+   if(company != nullptr)
+      delete [] company;
+
+   if(s.company != nullptr)
+   {
+      this->company = new char[strlen(s.company) + 1];
+      strcpy(company, s.company);
+   }
+   this->shares = s.shares;
+   this->share_val = s.share_val;
+   return *this;//so that we could do things like s1 = s2 = s3;
 }
 
 //destructor:
@@ -78,7 +114,9 @@ void Stock::update(double price)
 void Stock::show(void) const
 {
    using namespace std;
-   cout << "Company name: " << company << endl;
+   if(company != nullptr)
+      cout << "Company name: " << company << endl;
+
    cout << "Number of shares: " << shares << ", value of each share: " << share_val << endl;
    cout << "Total worth: " << total_val << endl;
 
