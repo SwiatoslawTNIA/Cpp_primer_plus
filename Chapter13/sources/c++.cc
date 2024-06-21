@@ -19,6 +19,8 @@
 ///
 /// @return the highest number
 //
+  
+#include "implement.h"
 
 int main(void)
   {
@@ -55,20 +57,83 @@ int main(void)
 
   using std::cout;
   using std::endl;
-  Brass Piggy("Porcelot Pigg", 381299, 4000.00);
-  BrassPlus Hoggy("Horatio Hogg", 382288, 3000.00);
-  Piggy.ViewAccount();
-  cout << endl;
-  Hoggy.ViewAccount();
-  cout << endl;
-  cout << "Depositing $1000 into the Hogg Account:\n";
-  Hoggy.Deposit(1000.00);
-  cout << "New balance: $" << Hoggy.Balance() << endl;
-  cout << "Withdrawing $4200 from the Pigg Account:\n";
-  Piggy.Withdraw(4200.00);
-  cout << "Pigg account balance: $" << Piggy.Balance() << endl;
-  cout << "Withdrawing $4200 from the Hogg Account:\n";
-  Hoggy.Withdraw(4200.00);
-  Hoggy.ViewAccount();
+  // Brass Piggy("Porcelot Pigg", 381299, 4000.00);
+  // BrassPlus Hoggy("Horatio Hogg", 382288, 3000.00);
+  // Piggy.ViewAccount();
+  // cout << endl;
+  // Hoggy.ViewAccount();
+  // cout << endl;
+  // cout << "Depositing $1000 into the Hogg Account:\n";
+  // Hoggy.Deposit(1000.00);
+  // cout << "New balance: $" << Hoggy.Balance() << endl;
+  // cout << "Withdrawing $4200 from the Pigg Account:\n";
+  // Piggy.Withdraw(4200.00);
+  // cout << "Pigg account balance: $" << Piggy.Balance() << endl;
+  // cout << "Withdrawing $4200 from the Hogg Account:\n";
+  // Hoggy.Withdraw(4200.00);
+  // Hoggy.ViewAccount();
+
+  // ABC * p_clients[4];
+  // std::string temp;
+  // long tempnum;
+  // double tempbal;
+  // char kind;
+  // for (int i = 0; i < 4; i++)
+  // {
+  //   cout << "Enter client's name: ";
+  //   getline(cin,temp);
+  //   cout << "Enter client's account number: ";
+  //   cin >> tempnum;
+  //   cout << "Enter opening balance: $";
+  //   cin >> tempbal;
+  //   cout << "Enter 1 for Brass Account or "
+  //   << "2 for BrassPlus Account: ";
+  //   while (cin >> kind && (kind != '1' && kind != '2'))
+  //     cout <<"Enter either 1 or 2: ";
+  //   if (kind == '1')
+  //     p_clients[i] = new Brass(temp, tempnum, tempbal);
+  //   else
+  //   {
+  //     double tmax, trate;
+  //     cout << "Enter the overdraft limit: $";
+  //     cin >> tmax;
+  //     cout << "Enter the interest rate "
+  //     << "as a decimal fraction: ";
+  //     cin >> trate;
+  //     p_clients[i] = new BrassPlus(temp, tempnum, tempbal, tmax, trate);
+  //   }
+  //     while (cin.get() != '\n')
+  //       continue;
+  //     }
+  //     cout << endl;
+  //     for (int i = 0; i < 4; i++)
+  //     {
+  //       p_clients[i]->ViewAccount();
+  //       cout << endl;
+  //     }
+  //     for (int i = 0; i < 4; i++)
+  //     {
+  //       delete p_clients[i]; // free memory
+  //     }
+  // cout << "Done.\n";
+  Name n1("James", 23);
+  Name n2 = n1;
+  Person p1 = Person("Jojo", 34, "Corniejski");
+  cout << "showing n1: \n";
+  n1.show();
+  cout << "showing n2: \n";
+
+  n2.show();
+  cout << "showing p1: \n";
+  p1.show();//the default version of the func is used for both classes, 
+  p1.show(); 
+  cout << "Terminating..";
+  Name * n3 = &p1;
+  cout << "Out";
+  n3->show();//the methods for Person is gonna be used here, because virtual
+  Name *four = new Person("Lol");
+  four->show();
+  delete four; //if virtual is not defined, it calls the Name destructor, which is a problem,
+  //since the Person allocated memory
   return 0;
 }
