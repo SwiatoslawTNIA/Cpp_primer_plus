@@ -7,6 +7,8 @@
 //---------------------------------------------------------------------------------------------------------------------
 //
 #include "c++.h"
+#include "valarray"
+
 //---------------------------------------------------------------------------------------------------------------------
 ///
 /// This is an example header comment. Here, you explain, what the
@@ -17,6 +19,7 @@
 ///
 /// @return the highest number
 //
+#include "student.h"
 int main(void)
 {
   using namespace std;
