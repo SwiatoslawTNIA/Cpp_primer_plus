@@ -21,8 +21,10 @@ vpath %.h headers
 run: c++
 	valgrind ./c++
 
-c++: c++.o implement.o
-implement.o: implement.cc
+c++: c++.o cd.o vintage.o
+vintage.o: vintage.cc
+# implement.o: implement.cc
+cd.o: cd.cc
 # brass.o: brass.cc
 # tabletennis.o: tabletennis.cc
 c++.o: c++.cc c++.h

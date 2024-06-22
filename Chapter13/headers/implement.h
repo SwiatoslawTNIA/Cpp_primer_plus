@@ -4,7 +4,8 @@ private: //or we could use protected with no funcs to refer to the data in the d
    char *name;
    int age;
 public:
-   Name(const char * n = "default", int a = 20);
+   Name(const char * n = "default", int a = 20);//a default constructor is a necessity for the base_class classes.
+   
    const char *get_hame(void) const {return name;};
    int get_age(void) const {return age;};
    virtual ~Name();

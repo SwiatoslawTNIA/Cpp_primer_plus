@@ -21,7 +21,9 @@
 //
   
 #include "implement.h"
-
+#include "cd.h"
+#include "vintage.h"
+void Bravo(const Cd & disk);
 int main(void)
   {
   using namespace std;
@@ -116,24 +118,65 @@ int main(void)
   //       delete p_clients[i]; // free memory
   //     }
   // cout << "Done.\n";
-  Name n1("James", 23);
-  Name n2 = n1;
-  Person p1 = Person("Jojo", 34, "Corniejski");
-  cout << "showing n1: \n";
-  n1.show();
-  cout << "showing n2: \n";
+  // Name n1("James", 23);
+  // Name n2 = n1;
+  // Person p1 = Person("Jojo", 34, "Corniejski");
+  // cout << "showing n1: \n";
+  // n1.show();
+  // cout << "showing n2: \n";
 
-  n2.show();
-  cout << "showing p1: \n";
-  p1.show();//the default version of the func is used for both classes, 
-  p1.show(); 
-  cout << "Terminating..";
-  Name * n3 = &p1;
-  cout << "Out";
-  n3->show();//the methods for Person is gonna be used here, because virtual
-  Name *four = new Person("Lol");
-  four->show();
-  delete four; //if virtual is not defined, it calls the Name destructor, which is a problem,
-  //since the Person allocated memory
+  // n2.show();
+  // cout << "showing p1: \n";
+  // p1.show();//the default version of the func is used for both classes, 
+  // p1.show(); 
+  // cout << "Terminating..";
+  // Name * n3 = &p1;
+  
+  // n3->show();//the methods for Person is gonna be used here, because virtual
+  // Name *four = new Person("Lol");
+  // four->show();
+  // delete four; //if virtual is not defined, it calls the Name destructor, which is a problem,
+  // //since the Person allocated memory
+
+  //EXERCISES: 
+  //1+2:
+  Cd c1("Beatles", "Capitol", 14, 35.5);
+  Classic c2 = Classic("Piano Sonata in B flat, Fantasia in C",
+  "Alfred Brendel", "Philips", 2, 57.17);
+  Cd *pcd = &c1;
+  cout << "Using object directly:\n";
+  c1.Report();
+  // use Cd method
+  c2.Report();
+  // use Classic method
+  cout << "Using type cd * pointer to objects:\n";
+  pcd->Report(); // use Cd method for cd object
+  pcd = &c2;
+  pcd->Report(); // use Classic method for classic object
+  cout << "Calling a function with a Cd reference argument:\n";
+  Bravo(c1);
+  Bravo(c2);
+  cout << "Testing assignment: ";
+  Classic copy;
+  copy = c2;
+  copy.Report();
+  cout << endl << endl;
+
+
+
+  Port p1;
+  p1.Show();
+  cout << p1;
+
+
+  VintagePort v1;
+  Port p2;
+  p1.Show();
+  cout << v1;
+
   return 0;
+}
+void Bravo(const Cd & disk)
+{
+  disk.Report();
 }
