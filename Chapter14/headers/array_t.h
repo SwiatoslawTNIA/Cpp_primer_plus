@@ -59,8 +59,8 @@ template<class T1, class T2>
 class Pair
 {
 private:
-   T1 a;
-   T2 b;
+   T1 a;//is essentially valarray<int> type object
+   T2 b;//is essentially valarray<int> type obj
 public:
    T1 & first();
    T2 & second();
