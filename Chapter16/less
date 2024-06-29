@@ -1,0 +1,1 @@
+g++ -g3 -I headers  -Wall -Wextra -Wpedantic   -c -o c++.o sources/c++.cc
