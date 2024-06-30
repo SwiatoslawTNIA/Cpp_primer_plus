@@ -315,7 +315,9 @@ bool sort_book(const book & book1, const book & book2)
   return (book1.rating > book2.rating)? true: false;
 }
 #endif
-
+template<class T>
+bool palindrome_f(const T * arr);
+#include <cctype>
 #include <algorithm>
 #include <ctime>
 //overload the A class with dereferecing and dereferencing write:
@@ -348,6 +350,7 @@ class A
     // }
 };
 
+#include <ctime>
 inline void output(const std::string & s) {std::cout << s << std::endl;}
 #include <iterator>
 int main(void)
@@ -356,7 +359,7 @@ int main(void)
   A *obj = new A(13);
   (*obj).value = 4;
   cout << (*obj).value;
-
+  delete obj;
 
 
   double arr[] = {12.2, 123.2313, 2132.23, -123.23, 2.3, 1};
@@ -394,5 +397,116 @@ int main(void)
   copy(s1, s1 + 2, back_insert_iterator<vector <std::string> >(words));
 
   for_each(words.begin(), words.end(), output);
+  //functors:
+  class Linear
+  {
+    double a;
+    double b;
+    public:
+      Linear(double in_1 = 0.0, double in_2 = 0.0): a(in_1), b(in_2){}
+      double operator()(double x) { return (a + x * b);}//overloading the () operator
+  };
+  Linear inst(123.32, 123.23);
+  Linear inst2;
+  double res = inst(32.323);
+  cout << "The result: " << res << endl;
+  //now an obj 
+
+
+
+
+  //I dynamically allocate memory for the set of structs, each of which will have 2 pointers to the heap:
+  typedef struct 
+  {
+    char *first_name;
+    char *last_name;
+    int value;
+    unsigned short int birth_year;
+  } N;
+  cout << "How many members would you like to have?" << endl;
+  int n = 0;
+  cin >> n;
+  while(!cin)
+  {
+    while(cin.get() != '\n')
+      ;
+    cout << "Please enter the correct value!!!";
+    cin >> n;
+  
+  }
+  N **nodes = new N*[n];
+  for(int i = 0; i < n; ++i)
+  {
+    nodes[i] = new N;
+    (*nodes[i]).first_name = new char[30];//we can set the name here
+    nodes[i]->last_name = new char[30];
+    nodes[i]->value = 13;//we can set the value here
+    nodes[i]->birth_year = 25;
+  }
+  //do something, 
+
+  // then free the nodes:
+  for(int i = 0; i < n; ++i)
+  {
+    delete [] nodes[i]->first_name;//free the first_name
+    delete [] nodes[i]->last_name;
+    delete nodes[i];//delete the node itself
+  }
+  //delete the array itself:
+  delete [] nodes;
+  //create an array of structs again:
+  char array[] = "MOmaMon";
+  //compute the time the func takes: 
+  clock_t old_t = clock();
+
+  palindrome_f<char>(array);
+  clock_t new_t = clock();
+  cout << "The new time is: " << (long double)(((old_t - new_t ) / CLOCKS_PER_SEC )) << "to the tenth power";
+  if(palindrome_f<char>("Madam, I'm Adam"))
+  {
+    cout << "The array is a palindrome." << endl;
+  }
+  else
+  {
+    cout << "The array is not a palindrome." << endl;
+
+  }
   return 0;
+}
+#include <cctype>
+template<class T>
+bool palindrome_f(const T * arr)
+{
+  if(arr == nullptr)
+    return true;
+  int i = 0;
+  for(; *(arr + i) != '\0'; ++i)
+    ;
+  const T *end = &arr[i - 1], *start = &arr[0];//*p points to the back of the string
+  // for(; end-- > start++;)
+  // {
+  //   if(!isalpha(*end) && !isalpha(*start))
+  //     continue;//this will skip the comparison between nonalphabetical characters
+  //   if(tolower(*end) != tolower(*start))
+  //     return false;
+  // }
+  //we have to move separately from end end start:
+  while(start < end)
+  {
+    if(!isalpha(*start))
+    {
+      ++start;
+      continue;
+    }
+    if(!isalpha(*end))
+    {
+      --end;
+      continue;
+    }
+    //if they are all alphas, we now compare them:
+    if(tolower(*start++) != tolower(*end--))
+      return false;
+    
+  }
+  return true;
 }

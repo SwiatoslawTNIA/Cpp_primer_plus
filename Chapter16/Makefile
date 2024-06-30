@@ -19,7 +19,7 @@ vpath %.h headers
 	$(COMPILE.C) $(OUTPUT_OPTION) $<
 
 run: c++
-	./c++
+	valgrind --leak-check=full ./c++
 
 c++: c++.o
 c++.o: c++.cc c++.h
