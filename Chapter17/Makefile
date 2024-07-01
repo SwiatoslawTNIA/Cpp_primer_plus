@@ -18,9 +18,11 @@ vpath %.h headers
 %.o: %.c++
 	$(COMPILE.C) $(OUTPUT_OPTION) $<
 
-run: c++
-	./c++
+run: c1
+	valgrind ./c1
 
+c1.o: c1.cc
+c1: c1.o
 c++: c++.o
 c++.o: c++.cc c++.h
 

@@ -19,7 +19,7 @@
 ///
 /// @return the highest number
 //
-
+inline void truncate(void) {while(std::cin.get() != '\n') continue;}
 void part1(void);
 
 int main(void)
@@ -55,12 +55,80 @@ int main(void)
   char n;
   bool new_line_was = false;
   cout << "The end of file: " << EOF;
-  while( (n = cin.get()) != '\n' || !new_line_was)
+  // while( (n = cin.get()) != '\n' || !new_line_was)
+  // {
+  //   if(n == '\n') new_line_was = true;
+  //   cout << n;
+  // }
+  //let's say, I set the delimeter to ":":
+  char arr[80];
+  cout << "Start typing: " << endl;
+  // while(cin.getline(arr, 80, '\n'))//so, let's say getline encounters '\n', 
+  //it extract it from the input stream, but discards it(= doesn't store it in the array.)
+  //appends a null char to the end of the array.
+  // {
+  //   cout << "\nThe text you typed: " << endl << arr;
+  // // }
+  // char a[10];
+  // while(cin.getline(a, 10))//output of 10+ chars causes failbit to be set, then 
+  // {
+  //   cout << endl << "Still reading.";
+  // }
+  // cin.clear();
+  // // while(cin.get() != '\n')//the reason the input with 10+chars has to be cleared, 
+  // // //is that the remaining chars are still on the stream, after getline failed, 
+  // // //so even reseting the failing bit won't fix, I have to read all the chars, including '\n'
+  // // //for the next getline() to work
+  // //   ;
+  // cout << "Type: ";
+  // cin.getline(a, 10);
+  // cout << endl << "You typed: " << a;
+  // cout << dec << "The amount of chars read by the last input method other than the >> operator: " << cin.gcount();
+  
+  char ar[20], c;
+  int i = 0;
+  // while((c = cin.peek()) != '.')
+  // {
+  //   ar[i++] = cin.get();//store the chars in the array
+  // }
+  //read a char, put it back x 10, then read another character:
+  // for(int count = 0; count < 2; ++count)
+  // {
+  //   cin.get(c);
+  //   cout << "Here's your character: " << c;
+  //   cin.putback(c);
+  //   unsigned short int counter = 0;
+  //   while(counter++ < 10)
+  //   {
+  //     cin.get(c);
+  //     cout << "Extracting the char from the stream the " << counter << "time" << endl;
+  //     cin.putback(c);
+  //   }
+  // }
+
+  //get in the input in two different ways, if the input doesn't fit, truncate it: 
+  //reading until the ^ character is encountered:
+  cout << endl << "First input:" << endl;
+  char p;
+  while(cin.peek() != '^')
   {
-    if(n == '\n') new_line_was = true;
-    cout << n;
+    cin.get(p);
+    cout << endl << p << flush;
   }
-  //let's say I set a delimeter, then I 
+  //something went wrong:
+  truncate();
+  cin.clear();//unset all the fail_state bits
+  cout << "Starting the second input: ";
+  while(cin.get(p))
+  {
+    if(p == '^')
+    {
+      cout << "End reached.";
+      break;
+    }
+    else  
+      cout << endl << p;
+  }
   return 0;
 }
 void part1(void) 
